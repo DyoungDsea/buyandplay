@@ -1,0 +1,23 @@
+
+
+aside.left-side{
+    width: 300px;
+    background: rgb(77, 62, 212);
+    height: 100%;
+    padding: 20px;
+    z-index: -1;
+}
+
+aside.left-side ul{
+    /* padding: 40px; */
+}
+
+aside.left-side ul li{
+    padding: 10px;
+    width: 100%;
+}
+
+aside.left-side ul li a{
+    display: block;
+    background-color: beige;
+}
