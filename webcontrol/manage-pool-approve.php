@@ -78,6 +78,7 @@
                                         <th>Booking ID</th>
                                         <th>Username</th>
                                         <th>Code</th>
+                                        <th>Week</th>
                                         <th>Result</th>
                                         <th>Status</th>
                                         <th>Game status</th>
@@ -106,6 +107,7 @@
                                                 echo $plat['username'];
                                              ?></td>
                                         <td><?php echo $r['dgames'] ?></td>
+                                        <td><?php echo $r['dweek'] ?></td>
                                         <td><?php echo $r['dresult'] ?></td>
                                         <td><?php echo $r['pstatus'] ?></td>
                                         <td><?php echo $r['don_and_off'] ?></td>

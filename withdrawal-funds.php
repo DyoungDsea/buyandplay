@@ -3,7 +3,7 @@
 require 'session_track.php';
 require 'function.php';
 require 'clean.php';
-
+$main = $conn->query("SELECT dmin FROM dwebsite_main")->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,9 +64,11 @@ require 'clean.php';
                         </div>
                         <div class="card-body">
                         <hr>
-                        <p class="my-3">Make a withdrawal request</p>
-                        <form class="cmn-form login-form mt-2" method="POST" action="withdrawal-process">
+                        <p class="my-1">Make a withdrawal request</p>
+                        <p class="my-3">The minimum amount you can request to withdraw from your account is <b class="text-danger"> &#8358;<?php echo number_format($main['dmin']);?></b></p><br>
+                            <form class="cmn-form login-form mt-2" method="POST" action="withdrawal-process">
                             <input type="hidden" id="hide" name="balance" value="<?php echo $k['dwallet_balance']; ?>">
+                            <input type="hidden" id="min" value="<?php echo $main['dmin']; ?>">
 
                             <div class="row" style="margin-top:-16px">
                             <div class="col-md-6">
@@ -100,7 +102,7 @@ require 'clean.php';
                             </div>
 
                             <div class="frm-group" id="button">
-                            <button type="submit" name="load" id="proceed" class="submit-btn">Proceed</button>
+                            <button type="submit" disabled name="load" id="proceed" class="submit-btn">Proceed</button>
                             </div>
                         </form>
                         <a href="javascript:history.back()" style="margin: 20px 0" class="btn btn-info pull-right"> <i class="fa fa-arrow-circle-left"></i> Back</a>
@@ -144,17 +146,31 @@ include('footer.php');
     $(document).on("keyup","#amount", function(){
       var amount = $("#amount").val();
       var hide = $("#hide").val();
+      var min = $("#min").val();
       // console.log(amount, hide)
-      //check if the amount is greater thank total balance
-      if(Number(amount) > Number(hide)){
-        $("#error").html("<p class='text-danger'>Invalid Request</p>");
-        $("#proceed").prop("disabled", true);
+      if(amount.length > 3){
+        //check if the amount is greater thank total balance
+        if(Number(amount) > Number(hide)){
+          $("#error").html("<p class='text-danger'>Invalid Request</p>");
+          $("#proceed").prop("disabled", true);
 
-      }else{
+        }else{
+          
+          //check if the amount requesting for is not less than amount set to be withdrawn
+          if(Number(amount) >= Number(min)){
+            $("#error").html("");
+            $("#proceed").prop("disabled", false);
+          }else{
+            $("#error").html("<p class='text-danger'>Your Request is too low</p>");
+            $("#proceed").prop("disabled", true);
+          }
+        }
+      }else{        
         $("#error").html("");
-        $("#proceed").prop("disabled", false);
       }
     })
+
+    
   })
 
 

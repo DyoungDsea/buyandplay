@@ -32,7 +32,7 @@ while($r=$x->fetch_assoc()):
 
         if($q['dstatus']=='gold' AND $q['dcat_id']==$r['dodd']){
             if($r['dtotal'] >= $won ):?>
-<div class="modal fade" id="exampleModal<?php echo $r['pool_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal<?php echo $r['pool_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">

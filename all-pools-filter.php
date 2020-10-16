@@ -12,7 +12,7 @@ $category_id = clean($g['dcategory_ids']);
 
 //get how many game to be won for free games
 if(isset($_SESSION['user']) AND @$_SESSION['user'] == true){
-$x = $conn->query("SELECT * FROM `dpool_code` INNER JOIN `dstar_rating` ON dstar_rating.dcategory_id = dpool_code.dodd WHERE dpool_code.duserid= dstar_rating.duser_id AND dstar_rating.dcategory_id = dpool_code.dodd AND dpool_code.don_and_off ='on' AND dpool_code.pstatus ='Approved' AND dpool_code.duserid !='$idx' AND dpool_code.dodd='$category_id'   ORDER BY dstar_rating.dtotal DESC ");
+$x = $conn->query("SELECT * FROM `dpool_code` INNER JOIN `dstar_rating` ON dstar_rating.dcategory_id = dpool_code.dodd WHERE dpool_code.duserid= dstar_rating.duser_id AND dstar_rating.dcategory_id = dpool_code.dodd AND dpool_code.don_and_off ='on' AND dpool_code.pstatus ='Approved' AND dpool_code.duserid !='$idx' AND dpool_code.dodd='$category_id' ORDER BY dstar_rating.dtotal DESC ");
 }else{
 $x = $conn->query("SELECT * FROM `dpool_code` INNER JOIN `dstar_rating` ON dstar_rating.dcategory_id = dpool_code.dodd WHERE dpool_code.duserid= dstar_rating.duser_id AND dstar_rating.dcategory_id = dpool_code.dodd AND dpool_code.don_and_off ='on' AND dpool_code.pstatus ='Approved' AND dpool_code.dodd='$category_id' ORDER BY dstar_rating.dtotal DESC ");
 }
@@ -29,7 +29,7 @@ while($r=$x->fetch_assoc()):
         $ra = $ran->fetch_assoc();
         $price = formatNaira($ra['dprice']);
 
-        if($q['dstatus']=='gold' AND $q['dcat_id']==$r['dodd']){
+        if($q['dstatus']=='gold' AND $q['dcat_id']==$r['dodd']){ //echo $won.' '.$r['dtotal'];
             if($r['dtotal'] >= $won ):?>
 
         <div class="col-md-3">
@@ -38,7 +38,7 @@ while($r=$x->fetch_assoc()):
         <?php
         $uvp = $r['duserid'];
         $vp = $conn->query("SELECT username FROM `members_register` WHERE userid='$uvp'")->fetch_assoc(); ?>
-          <p class="mt-4">Tipster:  <?php echo $vp['username']; ?></p>
+          <p class="mt-1">Tipster:  <?php echo $vp['username']; ?></p>
           <p> <?php echo $odd; ?></p>
           <p><b>Price:</b>  <?php echo $price; ?></p>
           
@@ -186,8 +186,11 @@ while($r=$x->fetch_assoc()):
       </div>
     </div>
             <?php endif;
-    }elseif($q['dstatus']=='Free' AND $q['dcat_id']==$r['dodd']){
-    if($r['dtotal'] <= $won ): echo $won.' '.$r['dtotal'];  ?>
+    }elseif($q['dstatus']=='Free' AND $q['dcat_id']==$r['dodd']){ echo $won.' '.$r['dtotal'];
+      $sqlb = $conn->query("SELECT * FROM `dpool_general` WHERE dstatus='bronze' AND dcat_id='$get_id'")->fetch_assoc();
+      //echo $won.' '.$sqlb['dgame_won'];
+      // if($q['dstatus']=='bronze'){echo $won.' '.$r['dtotal'];}
+    if($r['dtotal'] < $sqlb['dgame_won'] ):  ?>
         <div class="col-md-3">
         <div class="card mb-3">
           <div class="card-body text-center">

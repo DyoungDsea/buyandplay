@@ -65,6 +65,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
+                                                    <th>Min Withdrawal</th>
                                                     <th>Address</th>
                                                     <th>---</th>
                                                 </tr>
@@ -83,6 +84,7 @@
                                                         <td><?php echo $r['dname']; ?></td>
                                                         <td><?php echo $r['demail']; ?></td>
                                                         <td><?php echo $r['dphone']; ?></td>
+                                                        <td><?php echo $r['dmin']; ?></td>
                                                         <td><?php echo $r['daddress']; ?></td>
                                                         <td>
 
@@ -183,6 +185,11 @@
                             <div class="form-group">
                                 <label for="cat2">Phone</label>
                                 <input type="text" name="catft" id="cat2s"  value="<?php echo $xx['dphone']; ?>" required placeholder="Enter Name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cat2">Min Withdrawal</label>
+                                <input type="text" name="min" id="cat2ss"  value="<?php echo $xx['dmin']; ?>" required placeholder="Enter Min Withdrawal" class="form-control">
                             </div>
 
                             <div class="form-group">

@@ -108,10 +108,11 @@ if(isset($_POST['ten'])){
    $catf = clean($_POST['catf']);
    $catft = clean($_POST['catft']);
    $catftt = clean($_POST['catftt']);
+   $min = clean($_POST['min']);
    $id = clean($_POST['hid']);
 
    //insert into dbase
-   $q = $conn->query("UPDATE `dwebsite_main` SET dname='$add', demail='$catf', dphone='$catft', daddress='$catftt' WHERE id='$id' ");
+   $q = $conn->query("UPDATE `dwebsite_main` SET dname='$add', demail='$catf', dphone='$catft', dmin='$min', daddress='$catftt' WHERE id='$id' ");
    if($q){
       $_SESSION['msgs']='Updated succesfully';
       header("Location: set-main-website");
